@@ -28,8 +28,6 @@ contents:
   - src: ./nfpm/go-server-httpserver/go-server.env
     dst: /opt/go-server/etc/go-server.env
     type: config
-    file_info:
-      mode: 0600    
   - src: ./nfpm/go-server-httpserver/go-server-00-httpserver.yaml
     dst: /opt/go-server/etc/go-server-00-httpserver.yaml
     type: config    

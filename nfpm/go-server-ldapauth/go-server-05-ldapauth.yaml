@@ -1,0 +1,26 @@
+
+# Plugins to load, the order of these is important
+plugins:
+  - plugin/ldapauth.plugin
+
+# LDAP Authentication
+ldapauth:
+  # Values come from environment variables
+  url: "${LDAP_URL}"
+  user: "${LDAP_BIND}"
+  password: "${LDAP_PASSWORD}"
+  basedn: "${LDAP_BASEDN}"
+  filter: "${LDAP_FILTER}"
+  # Expiry for the cookie which stores user
+  expiry: 12h
+  # Attributes to add to the cookie
+  attrs:
+    - cn
+    - sn 
+    - givenName
+    - displayName
+    - title
+    - uid
+    - mail
+    - uidNumber
+    - gidNumber

@@ -20,5 +20,5 @@ contents:
     type: config    
 
 scripts:
-  postinstall: ./nfpm/go-server-mqtt/postinstall.deb.sh
-  postremove: ./nfpm/go-server-mqtt/postremove.deb.sh
+  postinstall: ./nfpm/scripts/restart.deb.sh
+  postremove: ./nfpm/scripts/restart.deb.sh

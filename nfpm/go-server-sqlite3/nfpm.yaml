@@ -19,5 +19,5 @@ contents:
     type: config    
 
 scripts:
-  postinstall: ./nfpm/go-server-sqlite3/postinstall.deb.sh
-  postremove: ./nfpm/go-server-sqlite3/postremove.deb.sh
+  postinstall: ./nfpm/scripts/restart.deb.sh
+  postremove: ./nfpm/scripts/restart.deb.sh

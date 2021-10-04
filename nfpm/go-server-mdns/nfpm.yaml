@@ -1,0 +1,26 @@
+name: "go-server-mdns"
+arch: ""
+version: ""
+section: "default"
+priority: "extra"
+maintainer: "David Thorpe <djt@mutablelogic.com>"
+description: |
+  Plugggable go-server monolith: mdns
+vendor: "mutablelogic.com"
+homepage: "https://github.com/mutablelogic/go-server"
+depends:
+  - go-server-httpserver
+
+contents:
+  - src: ./build/mdns.plugin
+    dst: /opt/go-server/plugin/mdns.plugin
+  - src: ./nfpm/go-server-mdns/go-server-30-mdns.yaml
+    dst: /opt/go-server/etc/go-server-30-mdns.yaml
+    type: config
+  - src: ./nfpm/go-server-mdns/service-names-port-numbers.xml
+    dst: /opt/go-server/etc/service-names-port-numbers.xml
+    type: config
+
+scripts:
+  postinstall: ./nfpm/scripts/restart.deb.sh
+  postremove: ./nfpm/scripts/restart.deb.sh

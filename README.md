@@ -32,11 +32,17 @@ The installation is located in `/opt/go-server`. The folders are:
 
 ## Debian and Ubuntu installation
 
-In order to download the packages for a release, you can use the [gh](https://github.com/cli/cli) command,
-then you can install the packages using the [dpkg](https://manpages.debian.org/dpkg) command:
+In order to download the packages for a release, you can use the [gh](https://github.com/cli/cli) command.
+To list all the releases:
 
 ```bash
-bash# gh release list
+bash# gh release list --repo github.com/mutablelogic/pkg-server
+```
+
+Then you can install the packages in the latest release using 
+the [dpkg](https://manpages.debian.org/dpkg) command:
+
+```bash
 bash# gh release download --repo github.com/mutablelogic/pkg-server --pattern '*.deb'
 bash# sudo dpkg -i *.deb
 ```

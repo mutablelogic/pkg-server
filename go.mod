@@ -14,11 +14,11 @@ require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/miekg/dns v1.1.43 // indirect
-	github.com/mutablelogic/go-mosquitto v1.0.4 // indirect
-	github.com/mutablelogic/go-server v1.0.35 // indirect
-	github.com/mutablelogic/go-sqlite v1.0.45 // indirect
+	github.com/mutablelogic/go-mosquitto v1.0.6 // indirect
+	github.com/mutablelogic/go-server v1.0.36 // indirect
+	github.com/mutablelogic/go-sqlite v1.0.46 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
-	golang.org/x/net v0.0.0-20210929193557-e81a3d93ecf6 // indirect
+	golang.org/x/net v0.0.0-20211005001312-d4b1ae081e3b // indirect
 	golang.org/x/sys v0.0.0-20210930141918-969570ce7c6c // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )

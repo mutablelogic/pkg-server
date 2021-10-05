@@ -16,7 +16,7 @@ require (
 	github.com/miekg/dns v1.1.43 // indirect
 	github.com/mutablelogic/go-mosquitto v1.0.6 // indirect
 	github.com/mutablelogic/go-server v1.0.36 // indirect
-	github.com/mutablelogic/go-sqlite v1.0.47 // indirect
+	github.com/mutablelogic/go-sqlite v1.0.48 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/net v0.0.0-20211005001312-d4b1ae081e3b // indirect
 	golang.org/x/sys v0.0.0-20210930141918-969570ce7c6c // indirect

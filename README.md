@@ -4,15 +4,15 @@ This repository is used to package plugins for [go-server](https://github.com/mu
 You can download the latest packages in the [releases](https://github.com/mutablelogic/pkg-server/releases)
 section.
 
-Presently packaging is performed for `armhf` (32-bit) Linux in `.deb` (Debian and Ubuntu) format. Other
-packaging formats and architectures are possible.
+Presently packaging is performed for `armhf` (32-bit) and `arm64` on Linux in `.deb` (Debian and Ubuntu) 
+format. Other packaging formats and architectures are possible.
 
 The packages are currently:
 
   * `go-server-httpserver` - the server and plugins for HTTP serving;
   * `go-server-template` - dynamic file serving through templates;
   * `go-server-ldapauth` - authentication with LDAP;
-  * `go-server-sqlite3` - sqlite3 database plugin;
+  * `go-server-sqlite3` - sqlite3 database & file indexer plugins;
   * `go-server-mqtt` - mqtt client plugin;
   * `go-server-mdns` - mDNS (multicast DNS) client and server plugin;
   * `go-server-ddregister` - Dynamic DNS registration plugin.

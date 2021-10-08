@@ -1,6 +1,7 @@
 # Plugins to load, the order of these is important
 plugins:
   - plugin/sqlite3.plugin
+  - plugin/indexer.plugin
   - plugin/log.plugin
 
 # Handlers for sqlite3
@@ -8,6 +9,12 @@ handlers:
   sqlite3:
     # The sqlite3 plugin can be viewed at http://localhost/api/sqlite3
     prefix: /api/sqlite3
+    # Requests are logged
+    middleware:
+      - log
+  indexer:
+    # The indexer plugin can be viewed at http://localhost/api/indexer
+    prefix: /api/indexer
     # Requests are logged
     middleware:
       - log
@@ -28,3 +35,12 @@ sqlite3:
 
   # Set max number of connections that can be simultaneously opened
   max: 5
+
+indexer:
+  # Add index names vs path to the index here
+  index:
+    docs: /opt/go-server/docs
+
+  # The database to use for storing index data
+  database: main
+

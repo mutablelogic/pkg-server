@@ -22,7 +22,7 @@ BUILD_LD_FLAGS += -X $(SERVER_MODULE)/pkg/version.GoBuildTime=$(shell date -u '+
 BUILD_FLAGS = -ldflags "-s -w $(BUILD_LD_FLAGS)" 
 
 # make all will create all debian packages
-all: clean dependencies nfpm \
+all: clean nfpm server \
 	go-server-httpserver-deb \
 	go-server-template-deb \
 	go-server-ldapauth-deb \
@@ -64,15 +64,11 @@ plugin-static: dependencies mkdir server
 # "make plugin-basicauth" will compile the basicauth plugin
 plugin-basicauth: dependencies mkdir server
 	@echo Build plugin-basicauth
-	@${GO} get github.com/GehirnInc/crypt/apr1_crypt
-	@${GO} get golang.org/x/crypto/bcrypt
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/basicauth.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/basicauth
 
 # "make plugin-ldapauth" will compile the ldapauth plugin
 plugin-ldapauth: dependencies mkdir server
 	@echo Build plugin-ldapauth
-	@${GO} get github.com/dgrijalva/jwt-go
-	@${GO} get github.com/go-ldap/ldap/v3
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/ldapauth.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/ldapauth
 
 # "make plugin-template" will compile the template plugin and renderers
@@ -84,7 +80,6 @@ plugin-template: dependencies mkdir server
 	@echo Build plugin-text-renderer
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/text-renderer.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/text-renderer
 	@echo Build plugin-markdown-renderer
-	@${GO} get github.com/gomarkdown/markdown
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/markdown-renderer.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/markdown-renderer
 
 # "make plugin-ddregister" will compile the ddregister plugin
@@ -95,21 +90,18 @@ plugin-ddregister: dependencies mkdir server
 # "make plugin-mdns" will compile the mdns plugin
 plugin-mdns: dependencies mkdir server
 	@echo Build plugin-mdns
-	@${GO} get github.com/miekg/dns
-	@${GO} get golang.org/x/net/ipv4
-	@${GO} get golang.org/x/net/ipv6
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/mdns.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/mdns
 
 # "make plugin-sqlite3" will compile the sqlite3 plugin
 plugin-sqlite3: dependencies mkdir server
 	@echo Build plugin-sqlite3
-	@${GO} get ${SQLITE3_MODULE}
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/sqlite3.plugin ${BUILD_FLAGS} ${SQLITE3_MODULE}/plugin/sqlite3
+	@echo Build plugin-indexer
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/indexer.plugin ${BUILD_FLAGS} ${SQLITE3_MODULE}/plugin/indexer
 
 # "make plugin-mqtt" will compile the mqtt plugin
 plugin-mqtt: dependencies mkdir server
 	@echo Build plugin-mqtt
-	@${GO} get ${MQTT_MODULE}
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/mqtt.plugin ${BUILD_FLAGS} ${MQTT_MODULE}/plugin/mqtt
 
 # "make go-server-httpserver-deb" will package the go-server-httpserver.deb
@@ -184,7 +176,7 @@ go-server-mdns-deb: plugin-mdns
 	@nfpm pkg -f $(BUILD_DIR)/go-server-mdns-nfpm.yaml --packager deb --target $(BUILD_DIR)
 
 # make nfpm will build the deb packager
-nfpm:
+nfpm: FORCE
 	@echo Installing nfpm
 	@${GO} mod tidy
 	@${GO} install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.3.1	
@@ -202,3 +194,6 @@ mkdir:
 
 clean:
 	@rm -fr $(BUILD_DIR)
+	@${GO} mod tidy
+
+FORCE:

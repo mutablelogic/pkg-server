@@ -6,7 +6,7 @@ This repository is used to package plugins for [go-server](https://github.com/mu
 You can download the latest packages in the [releases](https://github.com/mutablelogic/pkg-server/releases)
 section.
 
-Presently packaging is performed for `armhf` (32-bit) and `arm64` on Linux in `.deb` (Debian and Ubuntu) 
+Presently packaging is performed for `amd64`, `armhf` (32-bit) and `arm64` on Linux in `.deb` (Debian and Ubuntu) 
 format. Other packaging formats and architectures are possible.
 
 The packages are currently:

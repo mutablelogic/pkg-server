@@ -1,5 +1,7 @@
 # pkg-server
 
+[![Release](https://github.com/mutablelogic/pkg-server/actions/workflows/release-arm.yaml/badge.svg)](https://github.com/mutablelogic/pkg-server/actions/workflows/release-arm.yaml)
+
 This repository is used to package plugins for [go-server](https://github.com/mutablelogic/go-server/).
 You can download the latest packages in the [releases](https://github.com/mutablelogic/pkg-server/releases)
 section.

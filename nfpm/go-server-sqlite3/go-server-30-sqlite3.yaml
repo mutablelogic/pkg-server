@@ -34,7 +34,7 @@ sqlite3:
   trace: false
 
   # Set max number of connections that can be simultaneously opened
-  max: 5
+  max: 50
 
 indexer:
   # Add index names vs path to the index here

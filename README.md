@@ -18,6 +18,7 @@ The packages are currently:
   * `go-server-mqtt` - mqtt client plugin;
   * `go-server-mdns` - mDNS (multicast DNS) client and server plugin;
   * `go-server-ddregister` - Dynamic DNS registration plugin.
+  * `go-server-media` - Media services plugin.
 
 ## Installation location
 

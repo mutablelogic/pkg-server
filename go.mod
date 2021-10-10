@@ -10,8 +10,9 @@ require (
 	github.com/go-ldap/ldap/v3 v3.4.1
 	github.com/gomarkdown/markdown v0.0.0-20210918233619-6c1113f12c4a
 	github.com/miekg/dns v1.1.43
+	github.com/mutablelogic/go-media v1.0.7
 	github.com/mutablelogic/go-mosquitto v1.0.8
-	github.com/mutablelogic/go-server v1.0.37
+	github.com/mutablelogic/go-server v1.0.38
 	github.com/mutablelogic/go-sqlite v1.0.50
 	github.com/rjeczalik/notify v0.9.2
 	github.com/zyedidia/highlight v0.0.0-20200217010119-291680feaca1

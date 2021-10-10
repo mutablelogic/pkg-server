@@ -1,0 +1,30 @@
+name: "go-server-media"
+arch: ""
+version: ""
+section: "default"
+priority: "extra"
+maintainer: "David Thorpe <djt@mutablelogic.com>"
+description: |
+  Plugggable go-server monolith: media
+vendor: "mutablelogic.com"
+homepage: "https://github.com/mutablelogic/go-media"
+depends:
+  - go-server-httpserver
+
+contents:
+  # plugins
+  - src: ./build/media.plugin
+    dst: /opt/go-server/plugin/media.plugin
+  # configuration file  
+  - src: ./nfpm/go-server-media/go-server-40-media.yaml
+    dst: /opt/go-server/etc/go-server-40-media.yaml
+    type: config    
+
+# Empty folders your package may need created. (overridable)
+empty_folders:
+  - /opt/go-server/var/media/in
+  - /opt/go-server/var/media/out
+
+scripts:
+  postinstall: ./nfpm/scripts/restart.deb.sh
+  postremove: ./nfpm/scripts/restart.deb.sh

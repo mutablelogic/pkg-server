@@ -2,6 +2,7 @@ package deps
 
 /* Lists the dependencies of the project */
 import (
+	_ "github.com/mutablelogic/go-media"
 	_ "github.com/mutablelogic/go-mosquitto"
 	_ "github.com/mutablelogic/go-server"
 	_ "github.com/mutablelogic/go-sqlite"

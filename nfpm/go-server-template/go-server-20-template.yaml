@@ -25,9 +25,11 @@ template:
   default: default.tmpl
 
 # Renderers which should be used to render content. Order of these defines
-# renderers which takes priority.
+# renderers which takes priority. Any plugins which aren't loaded are
+# ignored.
 renderer:
   plugins:
     - markdown-renderer
+    - media
     - text-renderer
     - dir-renderer

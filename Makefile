@@ -6,6 +6,7 @@ SED=$(shell which sed)
 SERVER_MODULE = "github.com/mutablelogic/go-server"
 SQLITE3_MODULE = "github.com/mutablelogic/go-sqlite"
 MQTT_MODULE = "github.com/mutablelogic/go-mosquitto"
+MEDIA_MODULE = "github.com/mutablelogic/go-media"
 
 # Paths to locations, etc
 BUILD_DIR = "build"
@@ -28,10 +29,11 @@ all: clean nfpm server \
 	go-server-ldapauth-deb \
 	go-server-sqlite3-deb \
 	go-server-ddregister-deb \
-	go-server-mdns-deb 
+	go-server-mdns-deb \
+	go-server-media-deb
 
 # "make server" will just compile the server binary
-server: dependencies mkdir
+server: dependencies
 	@echo Build server
 	@${GO} get ${SERVER_MODULE}
 	@${GO} get github.com/djthorpe/go-errors
@@ -41,37 +43,37 @@ server: dependencies mkdir
 	@${GO} build -o ${BUILD_DIR}/server ${BUILD_FLAGS} ${SERVER_MODULE}/cmd/server
 
 # "make plugin-httpserver" will compile the httpserver plugin
-plugin-httpserver: dependencies mkdir server
+plugin-httpserver: dependencies
 	@echo Build plugin-httpserver
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/httpserver.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/httpserver
 
 # "make plugin-log" will compile the log plugin
-plugin-log: dependencies mkdir server
+plugin-log: dependencies
 	@echo Build plugin-log
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/log.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/log
 
 # "make plugin-env" will compile the env plugin
-plugin-env: dependencies mkdir server
+plugin-env: dependencies
 	@echo Build plugin-env
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/env.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/env
 
 # "make plugin-static" will compile the static plugin
-plugin-static: dependencies mkdir server
+plugin-static: dependencies
 	@echo Build plugin-static
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/static.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/static
 
 # "make plugin-basicauth" will compile the basicauth plugin
-plugin-basicauth: dependencies mkdir server
+plugin-basicauth: dependencies
 	@echo Build plugin-basicauth
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/basicauth.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/basicauth
 
 # "make plugin-ldapauth" will compile the ldapauth plugin
-plugin-ldapauth: dependencies mkdir server
+plugin-ldapauth: dependencies
 	@echo Build plugin-ldapauth
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/ldapauth.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/ldapauth
 
 # "make plugin-template" will compile the template plugin and renderers
-plugin-template: dependencies mkdir server
+plugin-template: dependencies
 	@echo Build plugin-template
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/template.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/template
 	@echo Build plugin-renderer
@@ -84,26 +86,31 @@ plugin-template: dependencies mkdir server
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/markdown-renderer.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/markdown-renderer
 
 # "make plugin-ddregister" will compile the ddregister plugin
-plugin-ddregister: dependencies mkdir server
+plugin-ddregister: dependencies
 	@echo Build plugin-ddregister
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/ddregister.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/ddregister
 
 # "make plugin-mdns" will compile the mdns plugin
-plugin-mdns: dependencies mkdir server
+plugin-mdns: dependencies
 	@echo Build plugin-mdns
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/mdns.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/mdns
 
 # "make plugin-sqlite3" will compile the sqlite3 plugin
-plugin-sqlite3: dependencies mkdir server
+plugin-sqlite3: dependencies
 	@echo Build plugin-sqlite3
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/sqlite3.plugin ${BUILD_FLAGS} ${SQLITE3_MODULE}/plugin/sqlite3
 	@echo Build plugin-indexer
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/indexer.plugin ${BUILD_FLAGS} ${SQLITE3_MODULE}/plugin/indexer
 
 # "make plugin-mqtt" will compile the mqtt plugin
-plugin-mqtt: dependencies mkdir server
+plugin-mqtt: dependencies
 	@echo Build plugin-mqtt
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/mqtt.plugin ${BUILD_FLAGS} ${MQTT_MODULE}/plugin/mqtt
+
+# "make plugin-media" will compile the media plugin
+plugin-media: dependencies
+	@echo Build plugin-media
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/media.plugin ${BUILD_FLAGS} ${MEDIA_MODULE}/plugin/media
 
 # "make go-server-httpserver-deb" will package the go-server-httpserver.deb
 go-server-httpserver-deb: plugin-httpserver plugin-log plugin-env plugin-static plugin-basicauth
@@ -165,7 +172,6 @@ go-server-ddregister-deb: plugin-ddregister
 		nfpm/go-server-ddregister/nfpm.yaml > $(BUILD_DIR)/go-server-ddregister-nfpm.yaml
 	@nfpm pkg -f $(BUILD_DIR)/go-server-ddregister-nfpm.yaml --packager deb --target $(BUILD_DIR)
 
-
 # "make go-server-mdns-deb" will package the go-server-mdns.deb
 go-server-mdns-deb: plugin-mdns
 	@echo Package go-server-mdns deb
@@ -176,13 +182,23 @@ go-server-mdns-deb: plugin-mdns
 		nfpm/go-server-mdns/nfpm.yaml > $(BUILD_DIR)/go-server-mdns-nfpm.yaml
 	@nfpm pkg -f $(BUILD_DIR)/go-server-mdns-nfpm.yaml --packager deb --target $(BUILD_DIR)
 
+# "make go-server-media-deb" will package the go-server-media.deb
+go-server-media-deb: plugin-media
+	@echo Package go-server-media deb
+	@${SED} \
+		-e 's/^version:.*$$/version: $(BUILD_VERSION)/'  \
+		-e 's/^arch:.*$$/arch: $(BUILD_ARCH)/' \
+		-e 's/^platform:.*$$/platform: $(BUILD_PLATFORM)/' \
+		nfpm/go-server-media/nfpm.yaml > $(BUILD_DIR)/go-server-media-nfpm.yaml
+	@nfpm pkg -f $(BUILD_DIR)/go-server-media-nfpm.yaml --packager deb --target $(BUILD_DIR)
+
 # make nfpm will build the deb packager
 nfpm: FORCE
 	@echo Installing nfpm
-	@${GO} mod tidy
+	@${GO} mod tidy -compat=1.17
 	@${GO} install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.3.1	
 
-dependencies:
+dependencies: mkdir
 ifeq (,${GO})
         $(error "Missing go binary")
 endif
@@ -197,6 +213,6 @@ mkdir:
 clean:
 	@echo Clean
 	@rm -fr $(BUILD_DIR)
-	@${GO} mod tidy
+	@${GO} mod tidy -compat=1.17
 
 FORCE:

@@ -1,0 +1,19 @@
+# Plugins to load, the order of these is important
+plugins:
+  - plugin/media.plugin
+  - plugin/log.plugin
+
+handlers:
+  media:
+    prefix: "/api/media"
+    middleware:
+      - log
+
+media:
+  # Lots of extra debug output
+  debug: false
+
+  # Buckets to serve media from
+  buckets:
+    in: var/media/in
+    out: var/media/out

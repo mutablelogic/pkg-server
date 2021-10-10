@@ -12,6 +12,7 @@ jobs:
           go-version: '^1.17.1'
       - name: Install dependencies for Linux on amd64
         run: |
+          sudo add-apt-repository ppa:jonathonf/ffmpeg-4 && apt-get update -y
           sudo apt-get install -y protobuf-compiler libprotobuf-dev \
             libmosquitto-dev \
             libavcodec-dev libavdevice-dev libavfilter-dev \

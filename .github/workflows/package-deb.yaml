@@ -10,12 +10,15 @@ jobs:
       - uses: actions/setup-go@v2
         with:
           go-version: '^1.17.1'
-      - name: Build for Linux on amd64
+      - name: Install dependencies for Linux on amd64
         run: |
           sudo apt-get install -y protobuf-compiler libprotobuf-dev \
             libmosquitto-dev \
             libavcodec-dev libavdevice-dev libavfilter-dev \
             libavformat-dev libavresample-dev libavutil-dev libchromaprint-dev
+      - name: Build for Linux on amd64
+        run: |
+          make
       - name: Upload DEBs to release
         run: |
           TAG=`git describe --abbrev=0 --tags`

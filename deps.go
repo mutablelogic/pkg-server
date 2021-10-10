@@ -12,6 +12,7 @@ import (
 	_ "github.com/gomarkdown/markdown"
 	_ "github.com/miekg/dns"
 	_ "github.com/rjeczalik/notify"
+	_ "github.com/zyedidia/highlight"
 	_ "golang.org/x/crypto/bcrypt"
 	_ "golang.org/x/net/ipv4"
 	_ "golang.org/x/net/ipv6"

@@ -75,6 +75,8 @@ plugin-ldapauth: dependencies mkdir server
 plugin-template: dependencies mkdir server
 	@echo Build plugin-template
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/template.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/template
+	@echo Build plugin-renderer
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/renderer.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/renderer
 	@echo Build plugin-dir-renderer
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/dir-renderer.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/dir-renderer
 	@echo Build plugin-text-renderer
@@ -190,9 +192,11 @@ ifeq (,${SED})
 endif
 
 mkdir:
+	@echo Mkdir
 	@install -d ${BUILD_DIR}
 
 clean:
+	@echo Clean
 	@rm -fr $(BUILD_DIR)
 	@${GO} mod tidy
 

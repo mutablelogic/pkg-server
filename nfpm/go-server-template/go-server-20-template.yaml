@@ -1,6 +1,7 @@
 
 # Plugins to load, the order of these is important
 plugins:
+  - plugin/renderer.plugin
   - plugin/template.plugin
   - plugin/text-renderer.plugin
   - plugin/dir-renderer.plugin
@@ -22,9 +23,10 @@ template:
   path: docs
   templates: templates
   default: default.tmpl
-  # Enumerate plugins which can render content. Order of these defines which
-  # takes priority.
-  renderers:
-    - markdown-renderer
-    - text-renderer
-    - dir-renderer
+
+# Enumerate plugins which can render content. Order of these defines which
+# takes priority.
+renderers:
+  - markdown-renderer
+  - text-renderer
+  - dir-renderer

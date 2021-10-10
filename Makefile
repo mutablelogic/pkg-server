@@ -27,7 +27,6 @@ all: clean nfpm server \
 	go-server-template-deb \
 	go-server-ldapauth-deb \
 	go-server-sqlite3-deb \
-	go-server-mqtt-deb \
 	go-server-ddregister-deb \
 	go-server-mdns-deb 
 

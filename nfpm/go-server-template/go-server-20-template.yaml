@@ -24,9 +24,10 @@ template:
   templates: templates
   default: default.tmpl
 
-# Enumerate plugins which can render content. Order of these defines which
-# takes priority.
-renderers:
-  - markdown-renderer
-  - text-renderer
-  - dir-renderer
+# Renderers which should be used to render content. Order of these defines
+# renderers which takes priority.
+renderer:
+  plugins:
+    - markdown-renderer
+    - text-renderer
+    - dir-renderer

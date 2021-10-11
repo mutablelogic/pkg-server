@@ -84,6 +84,8 @@ plugin-template: dependencies
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/text-renderer.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/text-renderer
 	@echo Build plugin-markdown-renderer
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/markdown-renderer.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/markdown-renderer
+	@echo Build plugin-zip-renderer
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/zip-renderer.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/zip-renderer
 
 # "make plugin-ddregister" will compile the ddregister plugin
 plugin-ddregister: dependencies

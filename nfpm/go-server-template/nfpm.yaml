@@ -23,6 +23,8 @@ contents:
     dst: /opt/go-server/plugin/dir-renderer.plugin
   - src: ./build/markdown-renderer.plugin
     dst: /opt/go-server/plugin/markdown-renderer.plugin
+  - src: ./build/zip-renderer.plugin
+    dst: /opt/go-server/plugin/zip-renderer.plugin
   # configuration file  
   - src: ./nfpm/go-server-template/go-server-20-template.yaml
     dst: /opt/go-server/etc/go-server-20-template.yaml

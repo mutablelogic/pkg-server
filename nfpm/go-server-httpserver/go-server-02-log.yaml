@@ -1,7 +1,7 @@
 
 # Load the logging plugin
 plugins:
-  - build/log.plugin
+  - plugin/log.plugin
 
 log:
   # Include a prefix to each log line

@@ -6,7 +6,7 @@ plugins:
   - plugin/text-renderer.plugin
   - plugin/dir-renderer.plugin
   - plugin/markdown-renderer.plugin
-  - build/zip-renderer.plugin
+  - plugin/zip-renderer.plugin
   - plugin/log.plugin
 
 handlers:
@@ -26,12 +26,12 @@ template:
   default: default.tmpl
 
 # Renderers which should be used to render content. Order of these defines
-# renderers which takes priority. Any plugins which aren't loaded are
-# ignored.
+# renderers which take priority. Any plugins which aren't loaded are
+# ignored here.
 renderer:
   plugins:
     - markdown-renderer
-    - media
     - text-renderer
     - dir-renderer
     - zip-renderer
+    - media

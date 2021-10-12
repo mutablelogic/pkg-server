@@ -12,8 +12,8 @@ require (
 	github.com/miekg/dns v1.1.43
 	github.com/mutablelogic/go-media v1.0.7
 	github.com/mutablelogic/go-mosquitto v1.0.8
-	github.com/mutablelogic/go-server v1.0.39
-	github.com/mutablelogic/go-sqlite v1.0.50
+	github.com/mutablelogic/go-server v1.0.40
+	github.com/mutablelogic/go-sqlite v1.0.51
 	github.com/rjeczalik/notify v0.9.2
 	github.com/zyedidia/highlight v0.0.0-20200217010119-291680feaca1
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519

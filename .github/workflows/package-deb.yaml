@@ -14,6 +14,7 @@ jobs:
         with:
           node-version: "16.x"
           scope: '@djthorpe'
+          registry-url: 'https://npm.pkg.github.com'
       - name: Install dependencies for Linux on amd64
         run: |
           sudo add-apt-repository ppa:jonathonf/ffmpeg-4 && sudo apt-get update -y
@@ -42,6 +43,7 @@ jobs:
         with:
           node-version: "16.x"
           scope: '@djthorpe'
+          registry-url: 'https://npm.pkg.github.com'
       - name: Build for Linux on arm64
         run: |
           make
@@ -67,6 +69,7 @@ jobs:
         with:
           node-version: "16.x"
           scope: '@djthorpe'
+          registry-url: 'https://npm.pkg.github.com'
       - name: Build for Linux on ARM
         run: |
           make

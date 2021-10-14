@@ -15,6 +15,10 @@ jobs:
           node-version: "16.x"
           scope: '@djthorpe'
           registry-url: 'https://npm.pkg.github.com'
+      - name: NPM login
+        run: |
+          cat ~/.npmrc
+          npm login --scope=@djthorpe --registry=https://npm.pkg.github.com
       - name: Install dependencies for Linux on amd64
         run: |
           sudo add-apt-repository ppa:jonathonf/ffmpeg-4 && sudo apt-get update -y
@@ -44,6 +48,10 @@ jobs:
           node-version: "16.x"
           scope: '@djthorpe'
           registry-url: 'https://npm.pkg.github.com'
+      - name: NPM login
+        run: |
+          npm login --scope=@djthorpe --registry=https://npm.pkg.github.com
+          cat ~/.npmrc
       - name: Build for Linux on arm64
         run: |
           make
@@ -72,7 +80,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       - name: NPM login
         run: |
-          npm login
+          npm login --scope=@djthorpe --registry=https://npm.pkg.github.com
+          cat ~/.npmrc
       - name: Build for Linux on ARM
         run: |
           make

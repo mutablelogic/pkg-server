@@ -17,7 +17,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       - name: NPM login
         run: |
-          cat ~/.npmrc
+          cat /home/runner/work/_temp/.npmrc
           npm login --scope=@djthorpe --registry=https://npm.pkg.github.com
       - name: Install dependencies for Linux on amd64
         run: |
@@ -51,7 +51,7 @@ jobs:
       - name: NPM login
         run: |
           npm login --scope=@djthorpe --registry=https://npm.pkg.github.com
-          cat ~/.npmrc
+          cat /home/runner/work/_temp/.npmrc
       - name: Build for Linux on arm64
         run: |
           make
@@ -61,7 +61,7 @@ jobs:
           gh release upload ${TAG} build/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
   build-arm:
     runs-on: [self-hosted, linux, arm]
     steps:
@@ -81,7 +81,6 @@ jobs:
       - name: NPM login
         run: |
           npm login --scope=@djthorpe --registry=https://npm.pkg.github.com
-          cat ~/.npmrc
       - name: Build for Linux on ARM
         run: |
           make
@@ -91,4 +90,4 @@ jobs:
           gh release upload ${TAG} build/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

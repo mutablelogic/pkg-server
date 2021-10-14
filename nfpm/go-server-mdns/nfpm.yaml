@@ -12,8 +12,13 @@ depends:
   - go-server-httpserver
 
 contents:
+  # plugins
   - src: ./build/mdns.plugin
     dst: /opt/go-server/plugin/mdns.plugin
+  - src: ./build/mdns-frontend.plugin
+    dst: /opt/go-server/plugin/mdns-frontend.plugin
+
+  # configuration files
   - src: ./nfpm/go-server-mdns/go-server-30-mdns.yaml
     dst: /opt/go-server/etc/go-server-30-mdns.yaml
     type: config

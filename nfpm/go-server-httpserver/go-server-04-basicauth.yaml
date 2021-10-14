@@ -2,16 +2,22 @@
 # Plugins to load, the order of these is important
 plugins:
   - plugin/basicauth.plugin
+  - plugin/basicauth-frontend.plugin
   - plugin/log.plugin
 
-# Handler for basicauth
+# Handlers for basicauth
 handlers:
   basicauth:
     prefix: /api/basicauth
     middleware:
       - log
       - basicauth
-   
+  basicauth-frontend:
+    prefix: /auth
+    middleware:
+      - log
+      - basicauth
+
 # Basic Authentication
 basicauth:
   # Realm to report to client when rejecting authentication
@@ -22,3 +28,4 @@ basicauth:
   groups: var/htgroups
   # Anyone in admin group can create, modify and delete users through the API
   admin: "@admin"
+

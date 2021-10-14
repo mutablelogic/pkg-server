@@ -1,6 +1,7 @@
 # Paths to packages
 GO=$(shell which go)
 SED=$(shell which sed)
+NPM=$(shell which npm)
 
 # Modules
 SERVER_MODULE = "github.com/mutablelogic/go-server"
@@ -46,6 +47,11 @@ server: dependencies
 	@${GO} get gopkg.in/yaml.v3
 	@${GO} build -o ${BUILD_DIR}/server ${BUILD_FLAGS} ${SERVER_MODULE}/cmd/server
 
+# "make npm-server" will build frontend content for go-server
+npm-server: 
+	$(eval SERVER_MODULE_PATH := $(shell go list -f "{{ .Dir }}" "${SERVER_MODULE}"))
+	@chmod -R +w ${SERVER_MODULE_PATH} && cd ${SERVER_MODULE_PATH} && make npm
+
 # "make plugin-httpserver" will compile the httpserver plugin
 plugin-httpserver: dependencies
 	@echo Build plugin-httpserver
@@ -66,10 +72,17 @@ plugin-static: dependencies
 	@echo Build plugin-static
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/static.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/static
 
+# "make plugin-events" will compile the events plugin
+plugin-events: dependencies
+	@echo Build plugin-events
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/events.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/events
+
 # "make plugin-basicauth" will compile the basicauth plugin
-plugin-basicauth: dependencies
+plugin-basicauth: dependencies npm-server
 	@echo Build plugin-basicauth
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/basicauth.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/basicauth
+	@echo Build plugin-basicauth-frontend
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/basicauth-frontend.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/basicauth-frontend
 
 # "make plugin-ldapauth" will compile the ldapauth plugin
 plugin-ldapauth: dependencies
@@ -97,9 +110,11 @@ plugin-ddregister: dependencies
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/ddregister.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/ddregister
 
 # "make plugin-mdns" will compile the mdns plugin
-plugin-mdns: dependencies
+plugin-mdns: dependencies npm-server
 	@echo Build plugin-mdns
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/mdns.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/mdns
+	@echo Build plugin-mdns-frontend
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/mdns-frontend.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/mdns-frontend
 
 # "make plugin-sqlite3" will compile the sqlite3 plugin
 plugin-sqlite3: dependencies
@@ -127,7 +142,7 @@ plugin-mutablehome: dependencies
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/tradfri.plugin ${BUILD_FLAGS} ${MUTABLEHOME_MODULE}/plugin/tradfri
 
 # "make go-server-httpserver-deb" will package the go-server-httpserver.deb
-go-server-httpserver-deb: plugin-httpserver plugin-log plugin-env plugin-static plugin-basicauth
+go-server-httpserver-deb: plugin-httpserver plugin-log plugin-env plugin-events plugin-static plugin-basicauth
 	@echo Package go-server-httpserver deb
 	@${SED} \
 		-e 's/^version:.*$$/version: $(BUILD_VERSION)/'  \
@@ -238,6 +253,9 @@ ifeq (,${GO})
 endif
 ifeq (,${SED})
         $(error "Missing sed binary")
+endif
+ifeq (,${NPM})
+        $(error "Missing npm binary")
 endif
 
 mkdir:

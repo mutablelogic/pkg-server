@@ -13,7 +13,7 @@ require (
 	github.com/mutablelogic/go-media v1.0.7
 	github.com/mutablelogic/go-mosquitto v1.0.8
 	github.com/mutablelogic/go-mutablehome v1.0.3
-	github.com/mutablelogic/go-server v1.0.41
+	github.com/mutablelogic/go-server v1.0.42
 	github.com/mutablelogic/go-sqlite v1.0.51
 	github.com/pkg/term v1.1.0
 	github.com/rjeczalik/notify v0.9.2

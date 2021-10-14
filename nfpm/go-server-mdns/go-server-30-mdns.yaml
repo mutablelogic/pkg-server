@@ -2,6 +2,7 @@
 # Plugins to load, the order of these is important
 plugins:
   - plugin/mdns.plugin
+  - plugin/mdns-frontend.plugin
   - plugin/basicauth.plugin
   - plugin/log.plugin
 
@@ -9,6 +10,11 @@ plugins:
 handlers:
   mdns:
     prefix: /api/mdns
+    middleware:
+      - log
+      - basicauth
+  mdns-frontend:
+    prefix: /mdns
     middleware:
       - log
       - basicauth

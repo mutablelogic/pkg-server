@@ -11,8 +11,7 @@ vendor: "mutablelogic.com"
 homepage: "https://github.com/mutablelogic/go-server"
 
 contents:
-
-  # Server binary
+  # server binary
   - src: ./build/server
     dst: /opt/go-server/bin/server
 
@@ -23,10 +22,16 @@ contents:
     dst: /opt/go-server/plugin/log.plugin
   - src: ./build/basicauth.plugin
     dst: /opt/go-server/plugin/basicauth.plugin
+  - src: ./build/basicauth-frontend.plugin
+    dst: /opt/go-server/plugin/basicauth-frontend.plugin
   - src: ./build/static.plugin
     dst: /opt/go-server/plugin/static.plugin
   - src: ./build/env.plugin
     dst: /opt/go-server/plugin/env.plugin
+  - src: ./build/events.plugin
+    dst: /opt/go-server/plugin/events.plugin
+
+  # systemctl service
   - src: ./nfpm/go-server-httpserver/go-server.service
     dst: /opt/go-server/etc/go-server.service
 
@@ -46,13 +51,16 @@ contents:
   - src: ./nfpm/go-server-httpserver/go-server-04-basicauth.yaml
     dst: /opt/go-server/etc/go-server-04-basicauth.yaml
     type: config
+  - src: ./nfpm/go-server-httpserver/go-server-05-events.yaml
+    dst: /opt/go-server/etc/go-server-05-events.yaml
+    type: config
 
   # static serving
   - src: ./nfpm/go-server-httpserver/index.html
     dst: /opt/go-server/docs/index.html
     type: config
   
-  # basicauth passwords
+  # basicauth passwords and groups
   - src: ./nfpm/go-server-httpserver/htpasswd
     dst: /opt/go-server/var/htpasswd
     type: config

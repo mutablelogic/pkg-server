@@ -1,0 +1,17 @@
+plugins:
+  - plugin/httpserver.plugin
+  - plugin/log.plugin
+  - plugin/rotel.plugin
+
+handlers:
+  rotel:
+    prefix: /api/rotel
+    middleware:
+      - log
+
+rotel:
+  # Device to use for serial comms
+  tty: /dev/ttyUSB0
+  # Baud rate
+  baud: 115200
+

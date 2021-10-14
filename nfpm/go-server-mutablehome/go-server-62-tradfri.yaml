@@ -1,0 +1,24 @@
+plugins:
+  - plugin/httpserver.plugin
+  - plugin/log.plugin
+  - plugin/env.plugin
+  - plugin/tradfri.plugin
+
+handlers:
+  tradfri:
+    prefix: /api/tradfri
+    middleware:
+      - log
+
+tradfri:
+  # Unique string to identify yourself to the gateway
+  id: 
+  # Location to store token secrets
+  path: var/mutablehome
+  # Address of gateway
+  addr: "${TRADFRI_ADDR}"
+  # Security code
+  key: "${TRADFRI_KEY}"
+  # Timeout for connection
+  timeout:
+

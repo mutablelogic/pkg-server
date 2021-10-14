@@ -1,0 +1,28 @@
+name: "go-server-mutablehome-rotel"
+arch: ""
+version: ""
+section: "default"
+priority: "extra"
+maintainer: "David Thorpe <djt@mutablelogic.com>"
+description: |
+  Plugggable go-server monolith: mutablehome-rotel
+vendor: "mutablelogic.com"
+homepage: "https://github.com/mutablelogic/go-mutablehome"
+depends:
+  - go-server-httpserver
+
+contents:
+  # plugins
+  - src: ./build/rotel.plugin
+    dst: /opt/go-server/plugin/rotel.plugin
+  # configuration file  
+  - src: ./nfpm/go-server-mutablehome/go-server-61-rotel.yaml
+    dst: /opt/go-server/etc/go-server-61-rotel.yaml
+    type: config    
+
+empty_folders:
+  - /opt/go-server/var/mutablehome
+
+scripts:
+  postinstall: ./nfpm/scripts/restart.deb.sh
+  postremove: ./nfpm/scripts/restart.deb.sh

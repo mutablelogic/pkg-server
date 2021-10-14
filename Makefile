@@ -7,6 +7,7 @@ SERVER_MODULE = "github.com/mutablelogic/go-server"
 SQLITE3_MODULE = "github.com/mutablelogic/go-sqlite"
 MQTT_MODULE = "github.com/mutablelogic/go-mosquitto"
 MEDIA_MODULE = "github.com/mutablelogic/go-media"
+MUTABLEHOME_MODULE = "github.com/mutablelogic/go-mutablehome"
 
 # Paths to locations, etc
 BUILD_DIR = "build"
@@ -30,7 +31,10 @@ all: clean nfpm server \
 	go-server-sqlite3-deb \
 	go-server-ddregister-deb \
 	go-server-mdns-deb \
-	go-server-media-deb
+	go-server-media-deb \
+	go-server-mutablehome-rotel-deb \
+	go-server-mutablehome-tradfri-deb
+
 
 # "make server" will just compile the server binary
 server: dependencies
@@ -114,6 +118,14 @@ plugin-media: dependencies
 	@echo Build plugin-media
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/media.plugin ${BUILD_FLAGS} ${MEDIA_MODULE}/plugin/media
 
+
+# "make plugin-mutablehome" will compile the mutablehome plugins
+plugin-mutablehome: dependencies
+	@echo Build plugin-rotel
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/rotel.plugin ${BUILD_FLAGS} ${MUTABLEHOME_MODULE}/plugin/rotel
+	@echo Build plugin-tradfri
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/tradfri.plugin ${BUILD_FLAGS} ${MUTABLEHOME_MODULE}/plugin/tradfri
+
 # "make go-server-httpserver-deb" will package the go-server-httpserver.deb
 go-server-httpserver-deb: plugin-httpserver plugin-log plugin-env plugin-static plugin-basicauth
 	@echo Package go-server-httpserver deb
@@ -193,6 +205,26 @@ go-server-media-deb: plugin-media
 		-e 's/^platform:.*$$/platform: $(BUILD_PLATFORM)/' \
 		nfpm/go-server-media/nfpm.yaml > $(BUILD_DIR)/go-server-media-nfpm.yaml
 	@nfpm pkg -f $(BUILD_DIR)/go-server-media-nfpm.yaml --packager deb --target $(BUILD_DIR)
+
+# "make go-server-mutablehome-rotel-deb" will package the go-server-mutablehome-rotel.deb
+go-server-mutablehome-rotel-deb: plugin-mutablehome
+	@echo Package go-server-mutablehome-rotel deb
+	@${SED} \
+		-e 's/^version:.*$$/version: $(BUILD_VERSION)/'  \
+		-e 's/^arch:.*$$/arch: $(BUILD_ARCH)/' \
+		-e 's/^platform:.*$$/platform: $(BUILD_PLATFORM)/' \
+		nfpm/go-server-mutablehome/nfpm-rotel.yaml > $(BUILD_DIR)/go-server-mutablehome-rotel-nfpm.yaml
+	@nfpm pkg -f $(BUILD_DIR)/go-server-mutablehome-rotel-nfpm.yaml --packager deb --target $(BUILD_DIR)
+
+# "make go-server-mutablehome-tradfri-deb" will package the go-server-mutablehome-tradfri.deb
+go-server-mutablehome-tradfri-deb: plugin-mutablehome
+	@echo Package go-server-mutablehome-tradfri deb
+	@${SED} \
+		-e 's/^version:.*$$/version: $(BUILD_VERSION)/'  \
+		-e 's/^arch:.*$$/arch: $(BUILD_ARCH)/' \
+		-e 's/^platform:.*$$/platform: $(BUILD_PLATFORM)/' \
+		nfpm/go-server-mutablehome/nfpm-tradfri.yaml > $(BUILD_DIR)/go-server-mutablehome-tradfri-nfpm.yaml
+	@nfpm pkg -f $(BUILD_DIR)/go-server-mutablehome-tradfri-nfpm.yaml --packager deb --target $(BUILD_DIR)
 
 # make nfpm will build the deb packager
 nfpm: FORCE

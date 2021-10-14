@@ -38,8 +38,8 @@ github.com/mutablelogic/go-mutablehome v1.0.3 h1:QOFP6bbce4nVfTtCxTjmCtfHipcuMTW
 github.com/mutablelogic/go-mutablehome v1.0.3/go.mod h1:qSg7np2LFR4SD2iI6DlCfIzWrr8Hu+oEEmlI+ht6j8M=
 github.com/mutablelogic/go-server v1.0.35/go.mod h1:g6V1jzdzvCwpwUIOsz8CKQqQD7owbCH6LHOHsMT+UDQ=
 github.com/mutablelogic/go-server v1.0.36/go.mod h1:g6V1jzdzvCwpwUIOsz8CKQqQD7owbCH6LHOHsMT+UDQ=
-github.com/mutablelogic/go-server v1.0.43 h1:xdgUgWMqEjdLjF4lPSpi497iwRkRuYvUEow959Wdj6I=
-github.com/mutablelogic/go-server v1.0.43/go.mod h1:rL3d+yn1mNTwT4DyzWEcQPlVw/aMEKOWXnI21ExPcSM=
+github.com/mutablelogic/go-server v1.0.44 h1:0139mpOiW3IHBQmB1r0G9UAYaHragZfcFT2rouz7GCM=
+github.com/mutablelogic/go-server v1.0.44/go.mod h1:rL3d+yn1mNTwT4DyzWEcQPlVw/aMEKOWXnI21ExPcSM=
 github.com/mutablelogic/go-sqlite v1.0.50/go.mod h1:5zyCalHGe/Ga62to1xLjaEdk+vOxlsX66nGUIZYzuKw=
 github.com/mutablelogic/go-sqlite v1.0.51 h1:1jGvPhgVJg8tZjgV/BGBIxU8huxrLRr3dfclxEm2Ww0=
 github.com/mutablelogic/go-sqlite v1.0.51/go.mod h1:TyD9O8S+wxOAOWUF3MiOh7tjQmngLhUojvVmrAe1k30=

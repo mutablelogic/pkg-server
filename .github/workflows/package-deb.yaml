@@ -31,6 +31,7 @@ jobs:
           gh release upload ${TAG} build/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build-arm64:
     runs-on: [self-hosted, linux, arm64]
     steps:
@@ -52,6 +53,7 @@ jobs:
           gh release upload ${TAG} build/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build-arm:
     runs-on: [self-hosted, linux, arm]
     steps:
@@ -77,3 +79,4 @@ jobs:
           gh release upload ${TAG} build/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

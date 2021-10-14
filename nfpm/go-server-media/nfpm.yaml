@@ -10,6 +10,7 @@ vendor: "mutablelogic.com"
 homepage: "https://github.com/mutablelogic/go-media"
 depends:
   - go-server-httpserver
+  - go-server-template
 
 contents:
   # plugins

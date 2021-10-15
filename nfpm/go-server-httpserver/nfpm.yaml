@@ -30,6 +30,8 @@ contents:
     dst: /opt/go-server/plugin/env.plugin
   - src: ./build/events.plugin
     dst: /opt/go-server/plugin/events.plugin
+  - src: ./build/events-frontend.plugin
+    dst: /opt/go-server/plugin/events-frontend.plugin
 
   # systemctl service
   - src: ./nfpm/go-server-httpserver/go-server.service

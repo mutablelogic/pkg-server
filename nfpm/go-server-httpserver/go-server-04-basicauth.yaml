@@ -3,6 +3,7 @@
 plugins:
   - plugin/basicauth.plugin
   - plugin/basicauth-frontend.plugin
+  - plugin/static.plugin
   - plugin/log.plugin
 
 # Handlers for basicauth
@@ -28,4 +29,3 @@ basicauth:
   groups: var/htgroups
   # Anyone in admin group can create, modify and delete users through the API
   admin: "@admin"
-

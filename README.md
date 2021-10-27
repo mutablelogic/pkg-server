@@ -14,6 +14,7 @@ The packages are currently:
   * `go-server-httpserver` - the server and plugins for HTTP serving;
   * `go-server-template` - dynamic file serving through templates;
   * `go-server-ldapauth` - authentication with LDAP;
+  * `go-server-consul` - retrieve configuration from consul key value store;
   * `go-server-sqlite3` - sqlite3 database & file indexer plugins;
   * `go-server-mqtt` - mqtt client plugin;
   * `go-server-mdns` - mDNS (multicast DNS) client and server plugin;

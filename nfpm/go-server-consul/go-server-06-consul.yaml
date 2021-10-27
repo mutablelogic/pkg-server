@@ -1,0 +1,13 @@
+
+# Load the consul plugin which provides key/value variable data source
+plugins:
+  - plugin/env.plugin
+  - plugin/consul.plugin
+
+consul:
+  # URL to consul agent
+  url: "${CONSUL_HTTP_ADDR}"
+  # Keys will be prefixed with path /go-server/<key>
+  path: "go-server"
+  # Token used for authentication to API
+  token:

@@ -1,0 +1,27 @@
+name: "go-server-consul"
+arch: ""
+platform: ""
+version: ""
+section: "default"
+priority: "extra"
+maintainer: "David Thorpe <djt@mutablelogic.com>"
+description: |
+  Plugggable go-server monolith: consul
+vendor: "mutablelogic.com"
+homepage: "https://github.com/mutablelogic/go-server"
+depends:
+  - go-server-httpserver
+
+contents:
+  # plugins
+  - src: ./build/consul.plugin
+    dst: /opt/go-server/plugin/consul.plugin
+
+  # plugin configuation files
+  - src: ./nfpm/go-server-consul/go-server-06-consul.yaml
+    dst: /opt/go-server/etc/go-server-06-consul.yaml
+    type: config    
+
+scripts:
+  postinstall: ./nfpm/scripts/restart.deb.sh
+  postremove: ./nfpm/scripts/restart.deb.sh

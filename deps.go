@@ -11,9 +11,10 @@ import (
 
 	// Indirect dependencies
 	_ "github.com/GehirnInc/crypt/apr1_crypt"
-	_ "github.com/dgrijalva/jwt-go"
 	_ "github.com/go-ldap/ldap/v3"
+	_ "github.com/golang-jwt/jwt"
 	_ "github.com/gomarkdown/markdown"
+	_ "github.com/hashicorp/consul/api"
 	_ "github.com/miekg/dns"
 	_ "github.com/pkg/term"
 	_ "github.com/rjeczalik/notify"

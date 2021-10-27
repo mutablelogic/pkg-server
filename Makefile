@@ -29,6 +29,7 @@ all: clean nfpm server \
 	go-server-httpserver-deb \
 	go-server-template-deb \
 	go-server-ldapauth-deb \
+	go-server-consul-deb \
 	go-server-sqlite3-deb \
 	go-server-ddregister-deb \
 	go-server-mdns-deb \
@@ -73,9 +74,11 @@ plugin-static: dependencies
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/static.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/static
 
 # "make plugin-events" will compile the events plugin
-plugin-events: dependencies
+plugin-events: dependencies npm-server
 	@echo Build plugin-events
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/events.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/events
+	@echo Build plugin-events-frontend
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/events-frontend.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/events-frontend
 
 # "make plugin-basicauth" will compile the basicauth plugin
 plugin-basicauth: dependencies npm-server
@@ -88,6 +91,11 @@ plugin-basicauth: dependencies npm-server
 plugin-ldapauth: dependencies
 	@echo Build plugin-ldapauth
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/ldapauth.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/ldapauth
+
+# "make plugin-consul" will compile the consul plugin
+plugin-consul: dependencies
+	@echo Build plugin-consul
+	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/consul.plugin ${BUILD_FLAGS} ${SERVER_MODULE}/plugin/consul
 
 # "make plugin-template" will compile the template plugin and renderers
 plugin-template: dependencies
@@ -133,7 +141,6 @@ plugin-media: dependencies
 	@echo Build plugin-media
 	@${GO} build -buildmode=plugin -o ${BUILD_DIR}/media.plugin ${BUILD_FLAGS} ${MEDIA_MODULE}/plugin/media
 
-
 # "make plugin-mutablehome" will compile the mutablehome plugins
 plugin-mutablehome: dependencies
 	@echo Build plugin-rotel
@@ -160,6 +167,16 @@ go-server-ldapauth-deb: plugin-ldapauth
 		-e 's/^platform:.*$$/platform: $(BUILD_PLATFORM)/' \
 		nfpm/go-server-ldapauth/nfpm.yaml > $(BUILD_DIR)/go-server-ldapauth-nfpm.yaml
 	@nfpm pkg -f $(BUILD_DIR)/go-server-ldapauth-nfpm.yaml --packager deb --target $(BUILD_DIR)
+
+# "make go-server-consul-deb" will package the go-server-consul.deb
+go-server-consul-deb: plugin-consul
+	@echo Package go-server-consul deb
+	@${SED} \
+		-e 's/^version:.*$$/version: $(BUILD_VERSION)/'  \
+		-e 's/^arch:.*$$/arch: $(BUILD_ARCH)/' \
+		-e 's/^platform:.*$$/platform: $(BUILD_PLATFORM)/' \
+		nfpm/go-server-consul/nfpm.yaml > $(BUILD_DIR)/go-server-consul-nfpm.yaml
+	@nfpm pkg -f $(BUILD_DIR)/go-server-consul-nfpm.yaml --packager deb --target $(BUILD_DIR)
 
 # "make go-server-template-deb" will package the go-server-template.deb
 go-server-template-deb: plugin-template

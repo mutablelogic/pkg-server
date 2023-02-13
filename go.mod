@@ -19,14 +19,13 @@ require (
 	github.com/pkg/term v1.1.0
 	github.com/rjeczalik/notify v0.9.2
 	github.com/zyedidia/highlight v0.0.0-20200217010119-291680feaca1
-	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
-	golang.org/x/net v0.0.0-20211008194852-3b03d305991f
+	golang.org/x/crypto v0.5.0
+	golang.org/x/net v0.5.0
 )
 
 require (
 	github.com/Azure/go-ntlmssp v0.0.0-20200615164410-66371956d46c // indirect
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
-	github.com/djthorpe/go-errors v1.0.2 // indirect
 	github.com/djthorpe/go-marshaler v0.0.15 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/go-asn1-ber/asn1-ber v1.5.3 // indirect
@@ -43,11 +42,11 @@ require (
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.1.2 // indirect
-	github.com/pion/dtls/v2 v2.0.0 // indirect
+	github.com/pion/dtls/v2 v2.2.4 // indirect
 	github.com/pion/logging v0.2.2 // indirect
-	github.com/pion/transport v0.10.0 // indirect
-	golang.org/x/sys v0.0.0-20211007075335-d3039528d8ac // indirect
-	golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543 // indirect
+	github.com/pion/transport/v2 v2.0.0 // indirect
+	github.com/pion/udp v0.1.4 // indirect
+	golang.org/x/sys v0.4.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
